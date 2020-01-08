@@ -25,16 +25,16 @@ export class DvdService {
   }
 
   remove(i: number){
-    let books = this.dvdSubject$.getValue()
+    let dvds = this.dvdSubject$.getValue()
     
-    if(i>=0 && i<books.length){
-      books.splice(i,1);
+    if(i>=0 && i<dvds.length){
+      dvds.splice(i,1);
     }
   }
 
   get(i: number): Observable<Dvd>{
     return this.dvd$.pipe(
-      map(books=> (i>=0 && i<books.length)? books[i]: null),
+      map(dvds=> (i>=0 && i<dvds.length)? dvds[i]: null),
       delay(1000)
     )
   }
