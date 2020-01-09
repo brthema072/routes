@@ -14,6 +14,7 @@ export class BookDetailComponent implements OnInit {
 
   book$: Observable<Book> = null;
   index: number;
+  authors: string[];
 
   constructor(private route: ActivatedRoute, private bookService: BookService, private router: Router) { }
 
@@ -22,12 +23,18 @@ export class BookDetailComponent implements OnInit {
     this.book$ = this.route.paramMap
       .pipe( 
         tap((params: ParamMap)=>this.index = +params.get('index')),
-        switchMap((params: ParamMap)=>this.bookService.get(+params.get('index') )))
+        switchMap((params: ParamMap)=>this.bookService.get(+params.get('index') )),
+        tap((b)=> this.authors = (b)? b.authores: []))
     /* .subscribe((params: ParamMap)=> console.log('Index: ', params.get('index'))) */
   }
 
   remove(){
     this.bookService.remove(this.index);
     this.router.navigate(['books'])
+  }
+
+  goAuthors(){
+    let url ='/books'+ this.index + '/authors'
+    this.router.navigate([url, {authors: this.authors}])
   }
 }
