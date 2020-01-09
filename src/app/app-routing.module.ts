@@ -7,10 +7,16 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { Routes, RouterModule } from '@angular/router';
 import { DvdDetailComponent } from './dvd/dvd-detail/dvd-detail.component';
 import { DvdFormComponent } from './dvd/dvd-form/dvd-form.component';
+import { BookDetailComponent } from './book/book-detail/book-detail.component';
 
 const appRoutes: Routes = [
   {path: 'dvds', component: DvdComponent},
-  {path: 'books', component: BookComponent},
+  {path: 'books', component: BookComponent,
+    children: [
+      {path: ':index', component: BookDetailComponent},
+    ]
+  },
+  
   {path: 'dvds/new', component:DvdFormComponent},
   {path: 'dvds/:index', component: DvdDetailComponent},
   {path: '', pathMatch: 'full', redirectTo: 'dvds'},
